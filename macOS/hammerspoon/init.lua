@@ -81,11 +81,13 @@ end)
 --- ### applications management ###
 hs.application.enableSpotlightForNameSearches(true)
 hs.hotkey.bind({"ctrl", "alt", "shift"}, "t", function()
-    apps.launchOrFocus("/Applications/Warp.app")
+    local app = hs.application.find("Warp") or hs.application.find("Warp Terminal")
+    if app then app:activate() else os.execute("/Applications/Warp.app") end
 end)
 
 hs.hotkey.bind({"ctrl", "alt", "shift"}, "b", function()
-    apps.launchOrFocus("/Applications/Brave Browser.app")
+    local app = hs.application.find("Brave Browser")
+    if app then app:activate() else os.execute("/Applications/Brave Browser.app") end
 end)
 
 hs.hotkey.bind({"ctrl", "alt", "shift"}, "a", function()
