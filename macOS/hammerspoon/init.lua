@@ -1,6 +1,6 @@
 -- print("Loading modules...")  -- Debugging print statement
 local winResize = require("modules.window.resize")
-local monitor = require("modules.window.monitor")
+local winMonitor = require("modules.window.monitor")
 local winUtils = require("modules.window.utils")
 local apps = require("modules.applications.apps")
 
