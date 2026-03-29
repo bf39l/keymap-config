@@ -1,5 +1,5 @@
 {
-    "description": "08 - Conditionally remap keys to use Colemak keyboard layout",
+    "description": "07 - Conditionally remap keys to use Colemak keyboard layout",
     "manipulators": [
         {
             "conditions": [

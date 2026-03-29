@@ -1,5 +1,5 @@
 {
-    "description": "01 - left+right shift - caps_lock",
+    "description": "02 - right+left shift in order - caps_lock",
     "manipulators": [
         {
             "from": {

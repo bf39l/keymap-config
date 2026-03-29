@@ -1,5 +1,5 @@
 {
-    "description": "07 - Meh - Toggle Colemak Layout",
+    "description": "06 - Meh - Toggle Colemak Layout variable",
     "manipulators": [
         {
             "conditions": [
