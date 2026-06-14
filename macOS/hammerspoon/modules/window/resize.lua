@@ -58,6 +58,87 @@ function resize.toggleMax(win)
     utils.windowState[id] = state
 end
 
+function resize.byDirection(direction, grow, minWidth, minHeight, edgeGap)
+    local win = hs.window.frontmostWindow()
+    if not win or grow == 0 then return end
+
+    local wf = win:frame()
+    local sf = win:screen():frame()
+
+    minWidth = minWidth or 400
+    minHeight = minHeight or 400
+    edgeGap = edgeGap or 10
+
+    local newFrame = hs.geometry.copy(wf)
+
+    local screenLeft = sf.x
+    local screenRight = sf.x + sf.w
+    local screenTop = sf.y
+    local screenBottom = sf.y + sf.h
+
+    if direction == utils.Direction.LEFT then
+        if grow > 0 then
+            local room = wf.x - screenLeft
+            local amount = math.min(grow, room)
+
+            newFrame.x = wf.x - amount
+            newFrame.w = wf.w + amount
+        else
+            local shrink = math.min(-grow, wf.w - minWidth)
+
+            if shrink > 0 then
+                newFrame.x = wf.x + shrink
+                newFrame.w = wf.w - shrink
+            end
+        end
+
+    elseif direction == utils.Direction.RIGHT then
+        if grow > 0 then
+            local room = screenRight - (wf.x + wf.w)
+            local amount = math.min(grow, room)
+
+            newFrame.w = wf.w + amount
+        else
+            local shrink = math.min(-grow, wf.w - minWidth)
+
+            if shrink > 0 then
+                newFrame.w = wf.w - shrink
+            end
+        end
+
+    elseif direction == utils.Direction.UPPER then
+        if grow > 0 then
+            local room = wf.y - screenTop
+            local amount = math.min(grow, room)
+
+            newFrame.y = wf.y - amount
+            newFrame.h = wf.h + amount
+        else
+            local shrink = math.min(-grow, wf.h - minHeight)
+
+            if shrink > 0 then
+                newFrame.y = wf.y + shrink
+                newFrame.h = wf.h - shrink
+            end
+        end
+
+    elseif direction == utils.Direction.LOWER then
+        if grow > 0 then
+            local room = screenBottom - (wf.y + wf.h)
+            local amount = math.min(grow, room)
+
+            newFrame.h = wf.h + amount
+        else
+            local shrink = math.min(-grow, wf.h - minHeight)
+
+            if shrink > 0 then
+                newFrame.h = wf.h - shrink
+            end
+        end
+    end
+
+    win:setFrame(newFrame)
+end
 
 function resize.by(grow, minWidth, minHeight, edgeGap)
     local win = hs.window.frontmostWindow()
@@ -115,7 +196,7 @@ function resize.by(grow, minWidth, minHeight, edgeGap)
         local bottomEdgeNear = math.abs((wf.y + wf.h) - (sf.y + sf.h)) <= edgeGap
 
         local allEdgesNear = leftEdgeNear and rightEdgeNear and topEdgeNear and bottomEdgeNear
-        
+
         if allEdgesNear then
             -- All edges pinned, normal centered shrink
             newFrame.x = wf.x + shrink

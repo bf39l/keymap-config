@@ -1,6 +1,7 @@
 -- print("Loading modules...")  -- Debugging print statement
 local winResize = require("modules.window.resize")
 local winMonitor = require("modules.window.monitor")
+local winMovement = require("modules.window.movement")
 local winUtils = require("modules.window.utils")
 local apps = require("modules.applications.apps")
 
@@ -24,6 +25,56 @@ end)
 
 hs.hotkey.bind({"ctrl", "alt", "shift"}, "down", function()
     winResize.toHalf(winUtils.Direction.LOWER)
+end)
+
+-- window movement
+hs.hotkey.bind({"ctrl", "alt", "shift", "cmd"}, "left", function()
+    winMovement.By(winUtils.Direction.LEFT, 30)
+end)
+
+hs.hotkey.bind({"ctrl", "alt", "shift", "cmd"}, "right", function()
+    winMovement.By(winUtils.Direction.RIGHT, 30)
+end)
+
+hs.hotkey.bind({"ctrl", "alt", "shift", "cmd"}, "up", function()
+    winMovement.By(winUtils.Direction.UPPER, 30)
+end)
+
+hs.hotkey.bind({"ctrl", "alt", "shift", "cmd"}, "down", function()
+    winMovement.By(winUtils.Direction.LOWER, 30)
+end)
+
+-- change window size by direction
+hs.hotkey.bind({"ctrl", "alt", "shift"}, "l", function()
+    winResize.byDirection(winUtils.Direction.LEFT, 30, 430, 400, 10)
+end)
+
+hs.hotkey.bind({"ctrl", "alt", "shift", "cmd"}, "l", function()
+    winResize.byDirection(winUtils.Direction.LEFT, -30, 430, 400, 10)
+end)
+
+hs.hotkey.bind({"ctrl", "alt", "shift"}, "r", function()
+    winResize.byDirection(winUtils.Direction.RIGHT, 30, 430, 400, 10)
+end)
+
+hs.hotkey.bind({"ctrl", "alt", "shift", "cmd"}, "r", function()
+    winResize.byDirection(winUtils.Direction.RIGHT, -30, 430, 400, 10)
+end)
+
+hs.hotkey.bind({"ctrl", "alt", "shift"}, "u", function()
+    winResize.byDirection(winUtils.Direction.UPPER, 30, 430, 400, 10)
+end)
+
+hs.hotkey.bind({"ctrl", "alt", "shift", "cmd"}, "u", function()
+    winResize.byDirection(winUtils.Direction.UPPER, -30, 430, 400, 10)
+end)
+
+hs.hotkey.bind({"ctrl", "alt", "shift"}, "d", function()
+    winResize.byDirection(winUtils.Direction.LOWER, 30, 430, 400, 10)
+end)
+
+hs.hotkey.bind({"ctrl", "alt", "shift", "cmd"}, "d", function()
+    winResize.byDirection(winUtils.Direction.LOWER, -30, 430, 400, 10)
 end)
 
 hs.hotkey.bind({"ctrl", "alt", "shift"}, "return", function()
